@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<!-- Meta viewport: wajib untuk responsive design -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Item 1: Judul Laman (<title>) -->
+<title>Yoga Pratama | Portofolio Pemain &amp; Pelatih Futsal</title>
+<!-- Item 15: Comment — komentar penjelasan kode ada di seluruh file ini -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== Token warna: tema terang (default) & gelap ===== */
+:root{
+  --bg:#F2F5F9; --card:#FFFFFF; --text:#0E2A47; --muted:#4D647C;
+  --line:#D5DEE8; --court:#0E2A47; --accent:#FFC933; --accent-ink:#1A1400;
+  --shadow:0 10px 30px rgba(14,42,71,.12);
+  --hl:#FFE98A;
+}
+:root[data-theme="dark"]{
+  --bg:#08172A; --card:#10253F; --text:#E8EEF6; --muted:#9DB2C9;
+  --line:#23405F; --court:#050F1C; --accent:#FFC933; --accent-ink:#1A1400;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+  --hl:#6B5300;
+}
+*{box-sizing:border-box}
+
+/* Memperbaiki masalah scroll kelewatan/tertutup navbar sticky & efek smooth */
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top: 85px;
+  -webkit-text-size-adjust:100%
+}
+
+/* Gambar & media responsif */
+img{max-width:100%;height:auto}
+
+/* Item 5: Background colour | Item 6: Font | Item 7: Font size | Item 8: Font colour */
+body{
+  margin:0;
+  background-color:var(--bg);
+  font-family:'Barlow','Segoe UI',Arial,sans-serif;
+  font-size:17px;
+  line-height:1.65;
+  color:var(--text);
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+h1,h2,h3{font-family:'Barlow Condensed','Arial Narrow',Impact,sans-serif;font-weight:800;line-height:1.05;margin:0 0 .5em}
+h1{font-size:clamp(3rem,9vw,6.2rem);letter-spacing:.01em}
+h2{font-size:clamp(2rem,5vw,3rem)}
+h3{font-size:1.5rem}
+
+/* Item 4: Spasi antar paragraph */
+p{margin:0 0 1.4em}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+section{padding:80px 0; transition: transform 0.3s ease;}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* ===== Navigasi dengan Efek Transisi ===== */
+nav{position:sticky;top:0;z-index:100;background:var(--court);color:#fff;box-shadow:0 4px 20px rgba(0,0,0,0.3); transition: background 0.3s ease;}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:12px;padding-bottom:12px}
+nav .brand{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-decoration:none; transition: opacity 0.2s ease;}
+nav .brand:hover{opacity: 0.8;}
+nav .nav-right{display:flex;align-items:center;gap:16px}
+nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0;align-items:center}
+
+/* Efek block warna & transisi halus pada link navbar */
+nav ul a{
+  display:block;
+  padding:8px 14px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+nav ul a:hover{
+  background:rgba(255,255,255,.15);
+  transform: translateY(-2px);
+}
+nav ul a.active-nav{
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(255,201,51,0.3);
+}
+
+#themeToggle{
+  border:2px solid var(--accent);
+  background:transparent;
+  color:#fff;
+  border-radius:999px;
+  padding:6px 14px;
+  font:inherit;
+  font-weight:600;
+  cursor:pointer;
+  transition: all 0.3s ease;
+  white-space:nowrap;
+}
+#themeToggle:hover{
+  background:var(--accent);
+  color:var(--accent-ink);
+  transform: scale(1.05);
+}
+
+/* Hamburger Button */
+.hamburger{
+  display:none;
+  background:transparent;
+  border:none;
+  color:#fff;
+  font-size:1.6rem;
+  cursor:pointer;
+  padding:4px 8px;
+  transition: transform 0.2s ease;
+}
+.hamburger:active{transform: scale(0.9);}
+
+/* ===== Hero Section ===== */
+.hero{position:relative;background:var(--court);color:#fff;overflow:hidden;padding:90px 0 100px}
+.hero svg{position:absolute;inset:0;width:100%;height:100%;opacity:.16; transition: opacity 0.5s ease;}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.3fr .7fr;gap:48px;align-items:center}
+.hero h1 span{display:block}
+.hero .tagline{font-size:1.3rem;max-width:34ch;margin-bottom:1.6em;color:#DCE6F2}
+
+/* Item 10: Text align */
+.photo{text-align:center}
+
+/* Item 16: Gaya foto profil dengan efek hover interaktif */
+.foto-profil{
+  display:block;
+  width:220px;max-width:100%;height:auto;aspect-ratio:220/280;
+  margin:0 auto;
+  object-fit:cover;
+  object-position:center top;
+  border-radius:20px;
+  border:3px solid var(--accent);
+  box-shadow:0 12px 28px rgba(0,0,0,.35);
+  background:#1B3A5E;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+.foto-profil:hover{
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(255,201,51,0.25);
+}
+.photo figcaption{margin-top:12px;font-size:.9rem;color:#B9C9DC}
+
+/* Tombol / Button dengan efek transisi pull-up */
+.btn{
+  display:inline-block;
+  padding:12px 26px;
+  border-radius:10px;
+  border:0;
+  background:var(--accent);
+  color:var(--accent-ink);
+  font:inherit;
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+  box-shadow:0 6px 16px rgba(255,201,51,.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn:hover{
+  transform: translateY(-4px);
+  box-shadow:0 12px 24px rgba(255,201,51,.5);
+}
+.btn:active{transform: translateY(-1px);}
+.btn.ghost{background:transparent;color:#fff;border:2px solid #fff;box-shadow:none;margin-left:8px}
+.btn.ghost:hover{background:rgba(255,255,255,0.1); border-color:var(--accent); color:var(--accent);}
+
+/* ===== Konten & Card Effects ===== */
+.about>div{max-width:760px}
+#biodata{padding-top:0}
+.strengths{margin:0 0 1.4em;padding-left:1.2em}
+.strengths li{margin-bottom:.4em; transition: transform 0.2s ease;}
+.strengths li:hover{transform: translateX(6px); color: var(--accent);}
+
+/* Item 9: Background colour font */
+.hl{background-color:var(--hl);padding:2px 8px;border-radius:4px}
+mark{background-color:var(--accent);color:var(--accent-ink);padding:0 4px}
+
+/* PERBAIKAN TAMPILAN DEL DAN INS AGAR TIDAK BERTUMPUK */
+del {
+  display: inline-block;
+  color: #D93025;
+  text-decoration: line-through;
+  margin: 0 3px;
+}
+ins {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #1F9D55;
+  color: #ffffff;
+  padding: 1px 7px;
+  border-radius: 6px;
+  font-weight: 600;
+  margin: 0 3px;
+}
+
+blockquote{
+  margin:0 0 1.6em;padding:18px 22px;
+  border-left:6px solid var(--accent);
+  background:var(--card);
+  border-radius:0 12px 12px 0;
+  box-shadow:var(--shadow);
+  font-size:1.15rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+blockquote:hover{transform: translateX(4px); box-shadow: 0 15px 35px rgba(0,0,0,0.15);}
+
+.card{
+  background:var(--card);
+  border-radius:16px;
+  padding:26px;
+  box-shadow:var(--shadow);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+.card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(14,42,71,0.18);
+}
+small{color:var(--muted)}
+
+/* Item 17: Table */
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse}
+caption{text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;padding-bottom:10px}
+th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:top; transition: background 0.2s ease;}
+th{width:30%;color:var(--muted);font-weight:600}
+tr:hover td, tr:hover th{background: rgba(255,201,51,0.05);}
+tr:last-child th,tr:last-child td{border-bottom:0}
+
+/* Filter & daftar prestasi */
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.filters button{
+  padding:9px 20px;
+  border-radius:999px;
+  border:2px solid var(--text);
+  background:transparent;
+  color:var(--text);
+  font:inherit;
+  font-weight:600;
+  cursor:pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.filters button:hover{
+  transform: translateY(-3px);
+  background: var(--text);
+  color: var(--bg);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+.filters button.active{background:var(--text);color:var(--bg)}
+
+.achv{list-style:none;margin:0;padding:0;display:grid;gap:22px}
+.achv>li{
+  background:var(--card);
+  border-radius:16px;
+  padding:24px 26px;
+  box-shadow:var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.achv>li:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+}
+.achv>li>strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;margin-bottom:8px}
+.achv ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(250px,100%),1fr));gap:10px}
+.achv ul li{
+  padding:11px 14px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.achv ul li:hover{
+  background:var(--hl);
+  border-color: var(--accent);
+  transform: translateX(6px) scale(1.01);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.hidden{display:none!important}
+
+/* Form */
+form{display:grid;gap:16px}
+label{font-weight:600;display:block;margin-bottom:4px}
+input,select,textarea{
+  width:100%;
+  padding:12px 14px;
+  border-radius:10px;
+  border:2px solid var(--line);
+  background:var(--bg);
+  color:var(--text);
+  font:inherit;
+  transition: all 0.3s ease;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--accent);
+  box-shadow: 0 0 0 4px rgba(255,201,51,0.2);
+  outline:none;
+}
+.err{color:#D93025;font-size:.9rem;min-height:1.2em;display:block}
+.invalid{border-color:#D93025}
+#formStatus{margin-top:14px;padding:14px;border-radius:10px;background:#1F9D55;color:#fff;font-weight:600; animation: fadeIn 0.4s ease;}
+
+/* ===== EFEK ANIMASI SCROLL (Fade In / Out & Pull In / Out) ===== */
+.animate-element {
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.pull-up { transform: translateY(40px); }
+.pull-down { transform: translateY(-40px); }
+.pull-right { transform: translateX(-40px); }
+.pull-left { transform: translateX(40px); }
+
+/* Saat elemen masuk area layar */
+.animate-element.visible {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+/* Item 18: Copyright (footer) */
+footer{background:var(--court);color:#C9D6E5;text-align:center;padding:32px 0}
+
+/* ===== Responsif: tablet (< 992px) ===== */
+@media (max-width:991px){
+  .hero .wrap{gap:32px}
+  section{padding:64px 0}
+}
+
+/* ===== Responsif: layar HP (< 768px) ===== */
+@media (max-width:767px){
+  body{font-size:16px}
+  .wrap{padding:0 16px}
+  section{padding:48px 0}
+  #biodata{padding-top:0}
+  h2{font-size:1.8rem}
+  h3{font-size:1.3rem}
+  
+  /* Navbar Hamburger di Mobile */
+  .hamburger{display:block}
+  nav .nav-right{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    width:100%;
+    background:var(--court);
+    flex-direction:column;
+    padding:16px 20px;
+    box-shadow:0 15px 30px rgba(0,0,0,.4);
+    border-top:1px solid rgba(255,255,255,.1);
+    animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  nav .nav-right.active{display:flex}
+  nav ul{flex-direction:column;width:100%;gap:10px;text-align:center}
+  #themeToggle{width:100%;margin-top:10px}
+
+  .hero{padding:48px 0 56px}
+  .hero .wrap{grid-template-columns:1fr;gap:36px}
+  .hero .tagline{font-size:1.1rem}
+  .hero .btn{display:block;text-align:center}
+  .btn.ghost{margin:10px 0 0}
+  .about>div{max-width:100%}
+  blockquote{font-size:1.05rem;padding:14px 16px}
+  .card{padding:18px}
+  table{min-width:300px}
+  th,td{padding:9px 6px;font-size:.95rem}
+  th{width:36%}
+  .achv>li{padding:18px}
+  .achv ul{grid-template-columns:1fr}
+  .achv>li>strong{font-size:1.4rem}
+  .filters button{flex:1 1 auto;padding:9px 14px}
+  footer{padding:26px 0;font-size:.92rem}
+}
+
+@media (max-width:379px){
+  h1{font-size:2.6rem}
+  .brand{font-size:1.05rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#beranda">YOGA PRATAMA</a>
+    <button class="hamburger" id="hamburgerToggle" aria-label="Buka menu navigasi">☰</button>
+    
+    <div class="nav-right" id="navRight">
+      <!-- Item 14: Link (<a>) — navigasi internal & tautan eksternal -->
+      <ul>
+        <li><a href="#beranda" class="active-nav">Home</a></li>
+        <li><a href="#tentang">Tentang</a></li>
+        <li><a href="#biodata">Biodata</a></li>
+        <li><a href="#prestasi">Prestasi</a></li>
+        <li><a href="#kontak">Booking</a></li>
+      </ul>
+      <button id="themeToggle" type="button" aria-label="Ganti tema terang atau gelap">Mode gelap</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="beranda">
+  <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none" stroke="#fff" stroke-width="3">
+    <rect x="40" y="40" width="720" height="420"/><line x1="400" y1="40" x2="400" y2="460"/>
+    <circle cx="400" cy="250" r="70"/><circle cx="400" cy="250" r="5" fill="#fff"/>
+    <path d="M40 160 h90 v180 h-90 M760 160 h-90 v180 h90"/>
+  </svg>
+  <div class="wrap">
+    <div class="animate-element pull-right">
+      <!-- Item 2: Judul pada tubuh website (<h1>, <h2>, <h3>) -->
+      <h1><span>Yoga</span><span>Pratama</span></h1>
+      <!-- Item 3: Paragraph (<p>) -->
+      <p class="tagline">Mengukir Prestasi di Lapangan, Menginspirasi Generasi Melalui Strategi</p>
+      <a class="btn" href="#kontak">Booking pelatih futsal</a>
+      <a class="btn ghost" href="#prestasi">Lihat prestasi</a>
+    </div>
+    <figure class="photo animate-element pull-left" style="margin:0">
+      <!-- Item 16: Image -->
+      <img class="foto-profil" src="yoga-profile.jpg" width="220" height="280" alt="Foto Profil Yoga Pratama"
+     onerror="this.onerror=null;this.src='yoga-profile.jpg'">
+      <figcaption>Pemain &amp; Pelatih Futsal</figcaption>
+    </figure>
+  </div>
+</header>
+
+<main>
+<section id="tentang">
+  <div class="wrap about">
+    <div class="animate-element pull-up">
+      <h2>Tentang saya</h2>
+      <p>Mahasiswa Olahraga Rekreasi yang berdedikasi tinggi di dunia futsal, memiliki rekam jejak panjang sebagai juara di berbagai turnamen bergengsi serta aktif membagikan ilmu sebagai pelatih futsal.</p>
+
+      <!-- Item 12: Quotation (<blockquote> dan <q>) -->
+      <blockquote class="animate-element pull-right">Futsal bukan hanya soal siapa yang paling cepat, tetapi siapa yang paling cerdas membaca ruang.</blockquote>
+      <p>Prinsip melatih saya sederhana: <q>latihan yang konsisten mengalahkan bakat yang malas</q>.</p>
+
+      <!-- Item 11: Formatting element lengkap (b, i, strong, mark, small, sub, sup, ins, del) -->
+      <p>
+        Saya mengandalkan <b>disiplin</b>, <i>kerja sama tim</i>, dan <strong>strategi yang matang</strong>.
+        Fokus utama pelatihan: <mark>penguasaan bola, rotasi posisi, dan transisi cepat</mark>.
+        Latihan rutin <del>Senin</del> <ins>Rabu</ins> sore, minimal 3<sup>x</sup> seminggu.
+        Jangan lupa hidrasi: minum H<sub>2</sub>O yang cukup.
+        <small>(Jadwal dapat menyesuaikan kebutuhan tim.)</small>
+      </p>
+      <p>Nilai yang saya bawa: <span class="hl">sportivitas, kerja keras, dan kepemimpinan</span>.</p>
+      <h3>Poin keunggulan</h3>
+      <ul class="strengths">
+        <li>Rekam jejak juara di turnamen sekolah, kampus, dan umum</li>
+        <li>Pengalaman ganda sebagai pemain dan pelatih</li>
+        <li>Pendekatan latihan berbasis strategi dan pembacaan permainan</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Section Biodata: tepat di bawah Tentang Saya, lebar penuh -->
+<section id="biodata">
+  <div class="wrap">
+    <h2 class="animate-element pull-down">Biodata</h2>
+    <!-- Item 17: Table biodata -->
+    <div class="card animate-element pull-up">
+      <div class="table-scroll">
+      <table>
+        <caption>Data diri mahasiswa</caption>
+        <tr><th scope="row">Nama</th><td>Yoga Pratama</td></tr>
+        <!-- Item 19: Sorot text abbr (<abbr title="...">) -->
+        <tr><th scope="row"><abbr title="Nomor Induk Mahasiswa">NIM</abbr></th><td>1605625103</td></tr>
+        <tr><th scope="row">Universitas</th><td>Universitas Negeri Jakarta</td></tr>
+        <tr><th scope="row">Program studi</th><td>Olahraga Rekreasi</td></tr>
+        <tr><th scope="row"><abbr title="Cabang Olahraga">Cabor</abbr></th><td>Futsal</td></tr>
+        <tr><th scope="row">Peran</th><td>Pemain &amp; pelatih futsal</td></tr>
+        <tr><th scope="row">Tugas</th><td>Portofolio <abbr title="Ujian Tengah Semester">UTS</abbr></td></tr>
+      </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="prestasi" style="background:var(--card)">
+  <div class="wrap">
+    <h2 class="animate-element pull-down">Daftar prestasi</h2>
+    <p class="animate-element pull-up">Sembilan capaian di turnamen tingkat sekolah, kampus, dan umum. Pilih kategori untuk menyaring daftar.</p>
+
+    <div class="filters animate-element pull-up" role="group" aria-label="Filter prestasi">
+      <button type="button" class="active" data-filter="semua">Semua</button>
+      <button type="button" data-filter="juara1">Juara 1</button>
+      <button type="button" data-filter="khusus">Penghargaan Khusus</button>
+    </div>
+
+    <!-- Item 13: Nested list (ul bersarang untuk kategori prestasi) -->
+    <ul class="achv">
+      <li data-group="juara1" class="animate-element pull-right">
+        <strong>Juara 1</strong>
+        <ul>
+          <li data-cat="juara1">HT Cup</li>
+          <li data-cat="juara1">Piala Rektor</li>
+          <li data-cat="juara1">SMAN 82 Jakarta</li>
+          <li data-cat="juara1">ISAC IBS</li>
+          <li data-cat="juara1">SMAN 86 Jakarta</li>
+          <li data-cat="juara1">Moestopo Cup</li>
+          <li data-cat="juara1">Izada dalam Lomba Futsal</li>
+        </ul>
+      </li>
+      <li data-group="khusus" class="animate-element pull-left">
+        <strong>Penghargaan khusus &amp; peringkat lain</strong>
+        <ul>
+          <li data-cat="khusus">Best Five Futsal Series Jakarta</li>
+          <li data-cat="khusus">Juara 3 SMAN 87 Jakarta</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="kontak">
+  <div class="wrap" style="max-width:680px">
+    <h2 class="animate-element pull-down">Booking pelatih futsal</h2>
+    <p class="animate-element pull-up">
+      Isi formulir berikut untuk sesi latihan atau pembinaan tim. Pesan akan langsung terkirim ke email resmi: 
+      <strong><a href="mailto:yp115660@gmail.com" style="color:var(--accent); text-decoration:underline;">yp115660@gmail.com</a></strong>
+    </p>
+    
+    <form id="bookingForm" class="card animate-element pull-up" novalidate>
+      <div>
+        <label for="nama">Nama lengkap</label>
+        <input id="nama" name="nama" type="text" placeholder="Masukkan nama Anda" autocomplete="name">
+        <span class="err" data-for="nama"></span>
+      </div>
+      <div>
+        <label for="email">Email Anda</label>
+        <input id="email" name="email" type="email" placeholder="contoh: nama@gmail.com" autocomplete="email">
+        <span class="err" data-for="email"></span>
+      </div>
+      <div>
+        <label for="jenis">Jenis latihan</label>
+        <select id="jenis" name="jenis">
+          <option value="">Pilih jenis latihan</option>
+          <option>Latihan Pribadi</option>
+          <option>Pembinaan Tim Sekolah/Kampus</option>
+          <option>Persiapan Turnamen</option>
+        </select>
+        <span class="err" data-for="jenis"></span>
+      </div>
+      <div>
+        <label for="pesan">Pesan / Target Latihan</label>
+        <textarea id="pesan" name="pesan" rows="4" placeholder="Ceritakan target dan jadwal yang diinginkan"></textarea>
+        <span class="err" data-for="pesan"></span>
+      </div>
+      <button class="btn" type="submit">Kirim Booking ke Email</button>
+    </form>
+    <div id="formStatus" class="hidden" role="status"></div>
+  </div>
+</section>
+</main>
+
+<!-- Item 18: Copyright (<footer> dengan entitas &copy;) -->
+<footer>
+  <p style="margin:0">&copy; 2026 Yoga Pratama &middot; Olahraga Rekreasi &middot; Hak cipta dilindungi.</p>
+  <!-- Item 19: Sorot text abbr (juga di footer) -->
+  <p style="margin:8px 0 0"><small>Portofolio <abbr title="Ujian Tengah Semester">UTS</abbr> &middot; <abbr title="Nomor Induk Mahasiswa">NIM</abbr> 1605625103</small></p>
+</footer>
+
+<script>
+/* ===== 1. Dark / light mode toggle ===== */
+const root = document.documentElement, toggle = document.getElementById('themeToggle');
+function applyTheme(t){
+  root.setAttribute('data-theme', t);
+  toggle.textContent = t === 'dark' ? 'Mode terang' : 'Mode gelap';
+}
+let saved = 'light';
+try { saved = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch(e){}
+applyTheme(saved);
+toggle.addEventListener('click', () => {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  try { localStorage.setItem('theme', next); } catch(e){}
+});
+
+/* ===== 2. Hamburger menu toggle (khusus mobile) ===== */
+const hamburgerToggle = document.getElementById('hamburgerToggle');
+const navRight = document.getElementById('navRight');
+hamburgerToggle.addEventListener('click', () => {
+  navRight.classList.toggle('active');
+});
+
+/* ===== 3. Efek Block Warna & Active State pada Navbar ===== */
+const navLinks = document.querySelectorAll('nav ul a');
+navLinks.forEach(link => {
+  link.addEventListener('click', function() {
+    navLinks.forEach(l => l.classList.remove('active-nav'));
+    this.classList.add('active-nav');
+    navRight.classList.remove('active');
+  });
+});
+
+/* ===== 4. Filter prestasi ===== */
+const filterBtns = document.querySelectorAll('.filters button');
+filterBtns.forEach(btn => btn.addEventListener('click', () => {
+  const f = btn.dataset.filter;
+  filterBtns.forEach(b => b.classList.toggle('active', b === btn));
+  document.querySelectorAll('.achv > li').forEach(group => {
+    group.classList.toggle('hidden', f !== 'semua' && group.dataset.group !== f);
+  });
+}));
+
+/* ===== 5. Validasi Form Booking & Hubungkan ke Email yp115660@gmail.com ===== */
+const form = document.getElementById('bookingForm'), status = document.getElementById('formStatus');
+
+function setErr(id, msg){
+  document.querySelector('[data-for="' + id + '"]').textContent = msg;
+  document.getElementById(id).classList.toggle('invalid', !!msg);
+  return !msg;
+}
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const v = id => form[id].value.trim();
+  
+  const ok = [
+    setErr('nama', v('nama').length < 3 ? 'Nama minimal 3 karakter.' : ''),
+    setErr('email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email')) ? '' : 'Masukkan email yang valid.'),
+    setErr('jenis', v('jenis') ? '' : 'Pilih jenis latihan.'),
+    setErr('pesan', v('pesan').length < 10 ? 'Pesan minimal 10 karakter.' : '')
+  ].every(Boolean);
+
+  if (!ok) { 
+    status.classList.add('hidden'); 
+    return; 
+  }
+
+  const targetEmail = 'yp115660@gmail.com';
+  const subject = encodeURIComponent('Booking Pelatih Futsal: ' + v('jenis') + ' - ' + v('nama'));
+  const body = encodeURIComponent(
+    'Halo Coach Yoga Pratama,\n\n' +
+    'Saya ingin mengajukan booking untuk pelatihan futsal dengan detail sebagai berikut:\n\n' +
+    '• Nama Lengkap: ' + v('nama') + '\n' +
+    '• Email Pemohon: ' + v('email') + '\n' +
+    '• Jenis Latihan: ' + v('jenis') + '\n\n' +
+    '• Pesan / Catatan:\n' + v('pesan') + '\n\n' +
+    'Mohon konfirmasi ketersediaan jadwalnya. Terima kasih!'
+  );
+
+  window.location.href = `mailto:${targetEmail}?subject=${subject}&body=${body}`;
+
+  status.textContent = 'Terima kasih, ' + v('nama') + '! Draf email otomatis dibuat untuk dikirim ke yp115660@gmail.com.';
+  status.classList.remove('hidden');
+  form.reset();
+});
+
+/* ===== 6. Intersection Observer untuk Efek Fade/Pull-in & Out saat Scroll ===== */
+const observerOptions = {
+  threshold: 0.15
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    } else {
+      entry.target.classList.remove('visible');
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.animate-element').forEach(el => {
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
